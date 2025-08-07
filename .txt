@@ -1,0 +1,885 @@
+// const renderTree = (parentId = undefined, level = 0) => {
+  //   const children = deletedItems.filter((item) =>
+  //     parentId === undefined
+  //       ? !deletedItems.some((i) => i.id === item.parentId)
+  //       : item.parentId === parentId
+  //   );
+
+  //   return children.map((item) => {
+  //     const hasChildren = deletedItems.some((i) => i.parentId === item.id);
+  //     const isExpanded = expandedItems[item.id];
+  //     const isDropdownOpen = dropdownOpen[item.id];
+
+  //     return (
+  //       <div key={item.id} style={{ marginLeft: level * 12 }} className="mb-1">
+  //         <div
+  //           className={`flex justify-between items-center py-1 px-1 rounded relative z-10 transition-all duration-200 ${
+  //             isDropdownOpen ? "bg-gray-100" : ""
+  //           }`}
+  //         >
+  //           <div className="flex items-center gap-1">
+  //             {hasChildren && (
+  //               <button
+  //                 onClick={(e) => {
+  //                   e.stopPropagation();
+  //                   toggleExpand(item.id);
+  //                 }}
+  //                 className="text-gray-600 hover:text-gray-800 transition-all duration-200"
+  //               >
+  //                 {isExpanded ? (
+  //                   <FiChevronDown className="w-4 h-4" />
+  //                 ) : (
+  //                   <FiChevronRight className="w-4 h-4" />
+  //                 )}
+  //               </button>
+  //             )}
+  //             <span className="truncate w-32 text-sm">{item.name}</span>
+  //           </div>
+
+  //           <div className="relative z-50">
+  //             <button
+  //               onClick={(e) => {
+  //                 e.stopPropagation();
+  //                 setDropdownOpen({ [item.id]: true });
+  //               }}
+  //               className="text-gray-500 hover:text-gray-700 transition-all duration-200"
+  //             >
+  //               <FiMoreVertical className="w-4 h-4" />
+  //             </button>
+
+  //             {isDropdownOpen && (
+  //               <div
+  //                 className="top-full right-0 mt-1 bg-white border rounded shadow text-xs w-20 z-100"
+  //                 onClick={(e) => e.stopPropagation()}
+  //               >
+  //                 <button
+  //                   onClick={() => handleRestore(item.id)}
+  //                   className="w-full text-left px-3 py-1 hover:bg-gray-100 text-blue-600"
+  //                 >
+  //                   Restore
+  //                 </button>
+  //                 <button
+  //                   onClick={() => handleDeletePermanently(item.id)}
+  //                   className="w-full text-left px-3 py-1 hover:bg-gray-100 text-red-500"
+  //                 >
+  //                   Delete
+  //                 </button>
+  //               </div>
+  //             )}
+  //           </div>
+  //         </div>
+
+  //         {isExpanded && hasChildren && renderTree(item.id, level + 1)}
+  //       </div>
+  //     );
+  //   });
+  // };
+
+  // const renderTree = (parentId = undefined, level = 0) => {
+  //   const children = deletedItems.filter((item) =>
+  //     parentId === undefined
+  //       ? !deletedItems.some((i) => i.id === item.parentId)
+  //       : item.parentId === parentId
+  //   );
+
+  //   return children.map((item) => {
+  //     const hasChildren = deletedItems.some((i) => i.parentId === item.id);
+  //     const isExpanded = expandedItems[item.id];
+  //     const isDropdownOpen = dropdownOpen[item.id];
+  //     const isFolder = item.type === "folder" || item.isFolder || hasChildren;
+
+  //     return (
+  //       <div key={item.id} style={{ marginLeft: level * 12 }} className="mb-1">
+  //         <div
+  //           className={`flex justify-between items-center py-1 px-1 rounded relative z-10 transition-all duration-200 ${
+  //             isDropdownOpen ? "bg-gray-100" : ""
+  //           }`}
+  //         >
+  //           <div className="flex items-center gap-1">
+  //             {hasChildren && (
+  //               <button
+  //                 onClick={(e) => {
+  //                   e.stopPropagation();
+  //                   toggleExpand(item.id);
+  //                 }}
+  //                 className="text-gray-600 hover:text-gray-800 transition-all duration-200"
+  //               >
+  //                 {isExpanded ? (
+  //                   <FiChevronDown className="w-4 h-4" />
+  //                 ) : (
+  //                   <FiChevronRight className="w-4 h-4" />
+  //                 )}
+  //               </button>
+  //             )}
+  //             <span className="flex items-center gap-2">
+  //               {isFolder ? (
+  //                 <FiFolder className="w-4 h-4 text-yellow-500" />
+  //               ) : (
+  //                 <FiFile className="w-4 h-4 text-blue-500" />
+  //               )}
+  //               <span className="truncate w-32 text-sm">{item.name}</span>
+  //             </span>
+  //           </div>
+
+  //           {/* ... (keep the rest of the existing code) ... */}
+  //         </div>
+
+  //         {isExpanded && hasChildren && renderTree(item.id, level + 1)}
+  //       </div>
+  //     );
+  //   });
+  // };
+
+
+  // import React, { useContext, useEffect, useRef, useState } from "react";
+// import {
+//   FiFileText,
+//   FiImage,
+//   FiFolder,
+//   FiFile,
+//   FiVideo,
+//   FiArrowLeft,
+//   FiMoreVertical,
+// } from "react-icons/fi";
+// import { FileContext } from "../context/FileContext";
+
+// const formatBytes = (bytes, decimals = 2) => {
+//   if (!+bytes) return "0 Bytes";
+//   const k = 1024;
+//   const dm = decimals < 0 ? 0 : decimals;
+//   const sizes = ["Bytes", "KB", "MB", "GB", "TB"];
+//   const i = Math.floor(Math.log(bytes) / Math.log(k));
+//   return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i];
+// };
+
+// const getFileTypeIcon = (fileName) => {
+//   if (!fileName) return <FiFile className="text-gray-500 w-5 h-5" />;
+//   const extension = fileName.toLowerCase().split(".").pop();
+//   switch (extension) {
+//     case "png":
+//     case "jpg":
+//     case "jpeg":
+//     case "gif":
+//       return <FiImage className="text-purple-500 w-5 h-5" />;
+//     case "mp4":
+//     case "webm":
+//       return <FiVideo className="text-pink-500 w-5 h-5" />;
+//     case "pdf":
+//       return <FiFileText className="text-red-500 w-5 h-5" />;
+//     case "js":
+//     case "json":
+//     case "txt":
+//     case "html":
+//     case "css":
+//       return <FiFileText className="text-green-500 w-5 h-5" />;
+//     default:
+//       return <FiFile className="text-gray-500 w-5 h-5" />;
+//   }
+// };
+
+// const ITEMS_PER_PAGE = {
+//   list: 5,
+//   grid: 15,
+// };
+
+// const MainSection = () => {
+//   const {
+//     files,
+//     currentFolder,
+//     setCurrentFolder,
+//     getFullFolder,
+//     openFile,
+//     searchQuery,
+//     renameItem,
+//     deleteItem,
+//     getItemSize,
+//     viewMode,
+//   } = useContext(FileContext);
+
+//   const [menuOpenId, setMenuOpenId] = useState(null);
+//   const [currentPage, setCurrentPage] = useState(1);
+//   const [selectedItems, setSelectedItems] = useState([]);
+//   const menuRef = useRef();
+
+//   useEffect(() => {
+//     const handleClickOutside = (e) => {
+//       if (menuRef.current && !menuRef.current.contains(e.target)) {
+//         setMenuOpenId(null);
+//       }
+//     };
+//     document.addEventListener("mousedown", handleClickOutside);
+//     return () => document.removeEventListener("mousedown", handleClickOutside);
+//   }, []);
+
+//   const handleBack = () => {
+//     if (!currentFolder) return;
+//     const folderObj =
+//       typeof currentFolder === "string"
+//         ? getFullFolder(currentFolder)
+//         : currentFolder;
+//     if (!folderObj?.parentId) {
+//       setCurrentFolder(null);
+//       return;
+//     }
+//     const parent = getFullFolder(folderObj.parentId);
+//     if (parent) setCurrentFolder(parent);
+//   };
+
+//   const getCurrentContents = () => {
+//     let contents = [];
+//     if (!currentFolder) contents = files.filter((f) => !f.parentId);
+//     else contents = files.filter((f) => f.parentId === currentFolder.id);
+
+//     if (searchQuery) {
+//       contents = contents.filter((item) =>
+//         item.name.toLowerCase().includes(searchQuery.toLowerCase())
+//       );
+//     }
+//     return contents;
+//   };
+
+//   const handleRename = (item) => {
+//     const lastDotIndex = item.name.lastIndexOf(".");
+//     const hasExtension = item.type === "file" && lastDotIndex !== -1;
+//     const baseName = hasExtension
+//       ? item.name.substring(0, lastDotIndex)
+//       : item.name;
+//     const extension = hasExtension ? item.name.substring(lastDotIndex) : "";
+//     const newBaseName = prompt("Enter new name:", baseName);
+//     if (newBaseName && newBaseName.trim() !== "") {
+//       const newFullName = newBaseName.trim() + extension;
+//       renameItem(item.id, newFullName);
+//     }
+//   };
+
+//   const handleDelete = (item) => {
+//     if (window.confirm(`Are you sure you want to delete "${item.name}"?`)) {
+//       deleteItem(item.id);
+//     }
+//   };
+
+//   const handleSelectAll = () => {
+//     const allIds = paginatedContents.map((item) => item.id);
+//     const isAllSelected = allIds.every((id) => selectedItems.includes(id));
+//     setSelectedItems(isAllSelected ? [] : allIds);
+//   };
+
+//   const handleDeleteSelected = () => {
+//     if (
+//       selectedItems.length > 0 &&
+//       window.confirm("Are you sure you want to delete the selected items?")
+//     ) {
+//       selectedItems.forEach((id) => deleteItem(id));
+//       setSelectedItems([]);
+//     }
+//   };
+
+//   const toggleSelection = (id) => {
+//     setSelectedItems((prev) =>
+//       prev.includes(id) ? prev.filter((itemId) => itemId !== id) : [...prev, id]
+//     );
+//   };
+
+//   const allContents = getCurrentContents();
+//   const perPage =
+//     viewMode === "grid" ? ITEMS_PER_PAGE.grid : ITEMS_PER_PAGE.list;
+//   const totalPages = Math.ceil(allContents.length / perPage);
+//   const paginatedContents = allContents.slice(
+//     (currentPage - 1) * perPage,
+//     currentPage * perPage
+//   );
+
+//   useEffect(() => {
+//     if (currentPage > totalPages) setCurrentPage(1);
+//   }, [allContents, totalPages]);
+
+//   const totalFiles = allContents.filter((item) => item.type === "file").length;
+//   const totalFolders = allContents.filter(
+//     (item) => item.type === "folder"
+//   ).length;
+
+//   return (
+//     <div className="flex-1 p-6">
+//       <div className="flex justify-between items-center mb-4">
+//         <h2 className="text-xl font-semibold">
+//           {currentFolder
+//             ? typeof currentFolder === "string"
+//               ? getFullFolder(currentFolder)?.name
+//               : currentFolder.name
+//             : "My Files"}
+//         </h2>
+//         {currentFolder && (
+//           <button
+//             onClick={handleBack}
+//             className="flex items-center gap-1 text-sm text-blue-500 hover:underline"
+//           >
+//             <FiArrowLeft className="w-4 h-4" />
+//             Back
+//           </button>
+//         )}
+//       </div>
+
+//       {paginatedContents.length > 0 && (
+//         <div className="flex justify-end mb-4 gap-2">
+//           <button
+//             onClick={handleSelectAll}
+//             className="px-4 py-1 rounded-md text-sm font-medium border border-blue-500 text-blue-500 hover:bg-blue-50 shadow-sm"
+//           >
+//             {selectedItems.length === paginatedContents.length
+//               ? "Unselect All"
+//               : "Select All"}
+//           </button>
+//           {selectedItems.length > 0 && (
+//             <button
+//               onClick={handleDeleteSelected}
+//               className="px-4 py-1 rounded-md text-sm font-medium border border-red-500 text-red-500 hover:bg-red-50 shadow-sm"
+//             >
+//               Delete Selected
+//             </button>
+//           )}
+//         </div>
+//       )}
+
+//       <div className="bg-white rounded-lg shadow overflow-hidden">
+//         <table className="min-w-full divide-y divide-gray-200">
+//           <thead className="bg-gray-50">
+//             <tr>
+//               <th className="px-4 py-3"></th>
+//               <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+//                 Name
+//               </th>
+//               <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+//                 Size
+//               </th>
+//               <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+//                 Date
+//               </th>
+//               <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+//                 Total Files
+//               </th>
+//               <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+//                 Total Folders
+//               </th>
+//               <th></th>
+//             </tr>
+//           </thead>
+//           <tbody className="bg-white divide-y divide-gray-200">
+//             {paginatedContents.map((item) => (
+//               <tr key={item.id} className="hover:bg-gray-50">
+//                 <td className="px-4 py-2">
+//                   <input
+//                     type="checkbox"
+//                     checked={selectedItems.includes(item.id)}
+//                     onChange={() => toggleSelection(item.id)}
+//                     className="form-checkbox h-4 w-4 text-blue-600"
+//                   />
+//                 </td>
+//                 <td className="px-3 py-2 flex items-center gap-1">
+//                   {item.type === "folder" ? (
+//                     <FiFolder className="text-yellow-500 w-5 h-5" />
+//                   ) : (
+//                     getFileTypeIcon(item.name)
+//                   )}
+//                   <span
+//                     onClick={() =>
+//                       item.type === "folder"
+//                         ? setCurrentFolder(item)
+//                         : openFile(item)
+//                     }
+//                     className="cursor-pointer hover:underline ml-1"
+//                   >
+//                     {item.name}
+//                   </span>
+//                 </td>
+//                 <td className="px-3 py-2 text-sm text-gray-600">
+//                   {getItemSize(item)}
+//                 </td>
+//                 <td className="px-3 py-2 text-sm text-gray-600">
+//                   {item.createdAt
+//                     ? new Date(item.createdAt).toLocaleDateString("en-GB")
+//                     : "-"}
+//                 </td>
+//                 <td className="px-3 py-2 text-sm text-gray-600">
+//                   {totalFiles}
+//                 </td>
+//                 <td className="px-3 py-2 text-sm text-gray-600">
+//                   {totalFolders}
+//                 </td>
+//                 <td className="px-3 py-2 text-right relative" ref={menuRef}>
+//                   <button
+//                     onClick={() =>
+//                       setMenuOpenId(menuOpenId === item.id ? null : item.id)
+//                     }
+//                     className="text-gray-500 hover:text-gray-700"
+//                   >
+//                     <FiMoreVertical />
+//                   </button>
+//                   {menuOpenId === item.id && (
+//                     <div className="absolute right-0 mt-2 w-28 bg-white border rounded shadow-md z-10">
+//                       <button
+//                         onClick={() => handleRename(item)}
+//                         className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+//                       >
+//                         Rename
+//                       </button>
+//                       <button
+//                         onClick={() => handleDelete(item)}
+//                         className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100"
+//                       >
+//                         Delete
+//                       </button>
+//                     </div>
+//                   )}
+//                 </td>
+//               </tr>
+//             ))}
+//           </tbody>
+//         </table>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default MainSection;
+
+
+// const restoreItem = async (id) => {
+  //   const db = await initDB();
+  //   const allDeleted = await db.getAll("deletedFiles");
+  //   const allExistingFiles = await db.getAll("files");
+
+  //   const toRestore = [];
+  //   const queue = [id];
+
+  //   // Collect all items to restore (including children)
+  //   while (queue.length) {
+  //     const currentId = queue.pop();
+  //     const item = allDeleted.find((f) => f.id === currentId);
+  //     if (item) {
+  //       toRestore.push(item);
+  //       queue.push(
+  //         ...allDeleted.filter((f) => f.parentId === item.id).map((f) => f.id)
+  //       );
+  //     }
+  //   }
+
+  //   // Restore in depth order (parents first)
+  //   toRestore.sort((a, b) => getDepth(a, allDeleted) - getDepth(b, allDeleted));
+
+  //   for (const item of toRestore) {
+  //     // Find the closest existing parent in the filesystem
+  //     let currentParentId = item.parentId;
+  //     while (
+  //       currentParentId &&
+  //       !allExistingFiles.some((f) => f.id === currentParentId)
+  //     ) {
+  //       currentParentId =
+  //         allDeleted.find((f) => f.id === currentParentId)?.parentId ?? null;
+  //     }
+
+  //     // Clean the name by removing any existing suffix
+  //     const cleanName = item.name.replace(/\s*\([^)]+\)$/, "").trim();
+
+  //     // Check for naming conflicts in the target directory
+  //     const siblings = allExistingFiles.filter(
+  //       (f) => f.parentId === currentParentId
+  //     );
+  //     const hasConflict = siblings.some((f) => {
+  //       const siblingCleanName = f.name.replace(/\s*\([^)]+\)$/, "").trim();
+  //       return siblingCleanName === cleanName;
+  //     });
+
+  //     let restoredName = item.name;
+
+  //     // Only modify name if there's a conflict in the target directory
+  //     if (hasConflict) {
+  //       const shortId = Math.floor(Math.random() * 900 + 100);
+  //       const parts = cleanName.split(".");
+  //       if (parts.length > 1) {
+  //         const ext = parts.pop();
+  //         restoredName = `${parts.join(".")} (${shortId}).${ext}`;
+  //       } else {
+  //         restoredName = `${cleanName} (${shortId})`;
+  //       }
+  //     } else {
+  //       // No conflict - restore with clean name (remove any existing suffix)
+  //       restoredName = cleanName;
+  //     }
+
+  //     const restored = {
+  //       ...item,
+  //       parentId: currentParentId,
+  //       name: restoredName,
+  //     };
+
+  //     await db.put("files", restored);
+  //     await db.delete("deletedFiles", item.id);
+  //     allExistingFiles.push(restored);
+  //   }
+
+  //   const [updatedFiles, updatedDeleted] = await Promise.all([
+  //     db.getAll("files"),
+  //     db.getAll("deletedFiles"),
+  //   ]);
+  //   setFiles(updatedFiles);
+  //   setDeletedItems(updatedDeleted);
+  // };
+
+
+
+  //delete item
+   const deleteItem = async (item) => {
+  //   const getAllDescendants = (parent) => {
+  //     return files
+  //       .filter((item) => item.parentId === parent.id)
+  //       .flatMap((item) => [item, ...getAllDescendants(item)]);
+  //   };
+
+  //   const allToDelete = [item, ...getAllDescendants(item)];
+  //   const idsToDelete = allToDelete.map((item) => item.id);
+
+  //   if (currentFolder && idsToDelete.includes(currentFolder?.id)) {
+  //     setCurrentFolder(null);
+  //   }
+
+  //   setFiles((prev) => prev.filter((item) => !idsToDelete.includes(item.id)));
+
+  //   // Get all currently deleted items to check for name conflicts
+  //   const allDeleted = await getAllDeletedFiles();
+
+  //   for (const item of allToDelete) {
+  //     // Clean the name by removing any existing suffix
+  //     const cleanName = item.name.replace(/\s*\([^)]+\)$/, "").trim();
+
+  //     // Check for naming conflicts in the recycle bin
+  //     const hasConflict = allDeleted.some((deletedItem) => {
+  //       const deletedCleanName = deletedItem.name
+  //         .replace(/\s*\([^)]+\)$/, "")
+  //         .trim();
+  //       return deletedCleanName === cleanName && deletedItem.type === item.type;
+  //     });
+
+  //     let deletedName = item.name;
+
+  //     // Only modify name if there's a conflict in the recycle bin
+  //     if (hasConflict) {
+  //       const shortId = item.id.slice(-4);
+  //       if (item.type === "folder") {
+  //         deletedName = `${cleanName} (${shortId})`;
+  //       } else {
+  //         const parts = cleanName.split(".");
+  //         if (parts.length > 1) {
+  //           const ext = parts.pop();
+  //           deletedName = `${parts.join(".")} (${shortId}).${ext}`;
+  //         } else {
+  //           deletedName = `${cleanName} (${shortId})`;
+  //         }
+  //       }
+  //     }
+
+  //     const deletedItem = {
+  //       ...item,
+  //       name: deletedName,
+  //     };
+
+  //     await saveDeletedFile(deletedItem);
+  //   }
+
+  //   const updatedDeleted = await getAllDeletedFiles();
+  //   setDeletedItems(updatedDeleted);
+
+  //   idsToDelete.forEach(deleteFileById);
+  // };
+
+  // const handleImportFromApi = async (url) => {
+  //   const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(url)}`;
+  //   console.log("📦 Fetching from API through proxy:", proxyUrl);
+
+  //   try {
+  //     const response = await axios.get(proxyUrl, { responseType: "blob" });
+  //     const blob = response.data;
+  //     const contentType = blob.type || "application/octet-stream";
+
+  //     let fileName = url.split("/").pop();
+
+  //     // Optional: Try to extract filename from response headers
+  //     const contentDisposition = response.headers["content-disposition"];
+  //     if (contentDisposition?.includes("filename=")) {
+  //       const match = contentDisposition.match(/filename="?(.+?)"?$/);
+  //       if (match) {
+  //         fileName = match[1];
+  //       }
+  //     }
+
+  //     // ✅ 1. DOWNLOAD the file
+  //     const downloadUrl = URL.createObjectURL(blob);
+  //     const a = document.createElement("a");
+  //     a.href = downloadUrl;
+  //     a.download = fileName;
+  //     document.body.appendChild(a);
+  //     a.click();
+  //     document.body.removeChild(a);
+  //     URL.revokeObjectURL(downloadUrl);
+  //     console.log("⬇️ File downloaded:", fileName);
+
+  //     // ✅ 2. SAVE inside app
+  //     const reader = new FileReader();
+  //     reader.onloadend = () => {
+  //       setPickedFile({
+  //         name: fileName,
+  //         url: reader.result, // base64 data URL
+  //         fileType: contentType,
+  //       });
+  //       setShowApiModal(false);
+  //       setSelectFolderModal(true); // Open folder picker
+  //     };
+  //     reader.onerror = () => {
+  //       console.error("❌ FileReader error:", reader.error);
+  //       alert("Failed to read the file for saving.");
+  //     };
+
+  //     reader.readAsDataURL(blob);
+  //   } catch (error) {
+  //     console.error("❌ Failed to fetch file from API:", error);
+  //     alert("❌ Failed to fetch file from API. CORS error likely.");
+  //   }
+  // };
+
+
+https://examplefile.com/file-download/269
+https://examplefile.com/file-download/154
+https://examplefile.com/file-download/851
+https://examplefile.com/file-download/27
+https://examplefile.com/file-download/911
+https://examplefile.com/file-download/565
+https://examplefile.com/file-download/577
+
+
+
+// const openFile = (file) => {
+  //   try {
+  //     if (!file?.content) {
+  //       throw new Error("Missing file content");
+  //     }
+
+  //     const lowerName = file.name.toLowerCase();
+  //     const base64 = file.content.split(",")[1];
+  //     const byteCharacters = atob(base64);
+  //     const byteNumbers = [...byteCharacters].map((c) => c.charCodeAt(0));
+  //     const byteArray = new Uint8Array(byteNumbers);
+
+  //     let mimeType = file.fileType;
+  //     let fileName = file.name;
+
+  //     // Adjust MIME and filename for .docx and .xlsx
+  //     if (lowerName.endsWith(".doc") || lowerName.endsWith(".docx")) {
+  //       mimeType =
+  //         "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+  //       if (!fileName.endsWith(".docx")) fileName += ".docx";
+  //     } else if (lowerName.endsWith(".xlsx")) {
+  //       mimeType =
+  //         "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+  //       if (!fileName.endsWith(".xlsx")) fileName += ".xlsx";
+  //     }
+
+  //     const blob = new Blob([byteArray], { type: mimeType });
+  //     const blobUrl = URL.createObjectURL(blob);
+
+  //     // 1. Text files (open in app)
+  //     if (lowerName.endsWith(".txt")) {
+  //       console.log("Opening text note:", file.id);
+  //       window.location.href = `/notes/${file.id}`;
+  //     }
+
+  //     // 2. Images and PDFs (open in new tab)
+  //     else if (
+  //       lowerName.endsWith(".pdf") ||
+  //       lowerName.endsWith(".jpeg") ||
+  //       lowerName.endsWith(".jpg") ||
+  //       lowerName.endsWith(".png")
+  //     ) {
+  //       window.open(blobUrl, "_blank");
+  //     }
+
+  //     // 3. Word and Excel documents (download only)
+  //     else if (
+  //       lowerName.endsWith(".doc") ||
+  //       lowerName.endsWith(".docx") ||
+  //       lowerName.endsWith(".xlsx")
+  //     ) {
+  //       const a = document.createElement("a");
+  //       a.href = blobUrl;
+  //       a.download = fileName;
+  //       document.body.appendChild(a);
+  //       a.click();
+  //       document.body.removeChild(a);
+  //       URL.revokeObjectURL(blobUrl);
+
+  //       alert(`The file "${fileName}" has been downloaded.`);
+  //     }
+
+  //     // 4. Other file types (open in iframe)
+  //     else {
+  //       const iframeWindow = window.open("", "_blank");
+  //       iframeWindow.document.write(`
+  //       <html>
+  //         <head><title>File Preview</title></head>
+  //         <body style="margin:0">
+  //           <iframe src="${blobUrl}" style="border:none;width:100vw;height:100vh"></iframe>
+  //         </body>
+  //       </html>
+  //     `);
+  //     }
+
+  //     // Update app state if needed
+  //     setOpenedFile?.(file);
+  //   } catch (error) {
+  //     console.error("Error opening file:", error);
+  //     alert("Could not open file. It may be corrupted or unsupported.");
+  //   }
+  // };
+
+  // const openFile = (file) => {
+  //   try {
+  //     if (!file?.content) {
+  //       throw new Error("Missing file content");
+  //     }
+
+  //     const lowerName = file.name.toLowerCase();
+
+  //     // 1. Text files (open in app)
+  //     if (lowerName.endsWith(".txt")) {
+  //       window.location.href = `/notes/${file.id}`;
+  //       return;
+  //     }
+
+  //     // 2. Images and PDFs (open in new tab)
+  //     if (
+  //       lowerName.endsWith(".pdf") ||
+  //       lowerName.endsWith(".jpeg") ||
+  //       lowerName.endsWith(".jpg") ||
+  //       lowerName.endsWith(".png")
+  //     ) {
+  //       window.open(file.content, "_blank");
+  //       return;
+  //     }
+
+  //     // 3. Office files (show in modal viewer)
+  //     if (
+  //       lowerName.endsWith(".doc") ||
+  //       lowerName.endsWith(".docx") ||
+  //       lowerName.endsWith(".xlsx") ||
+  //       lowerName.endsWith(".pptx")
+  //     ) {
+  //       setOpenedFile({ ...file, isOpen: true });
+  //       return;
+  //     }
+
+  //     // 4. Other file types (download)
+  //     const a = document.createElement("a");
+  //     a.href = file.content;
+  //     a.download = file.name;
+  //     document.body.appendChild(a);
+  //     a.click();
+  //     document.body.removeChild(a);
+  //   } catch (error) {
+  //     console.error("Error opening file:", error);
+  //     alert("Could not open file. It may be corrupted or unsupported.");
+  //   }
+  // };
+
+
+// add file 
+ // Add a new file
+
+  // const addFile = (
+  //   name,
+  //   parentId = null,
+  //   content = "",
+  //   fileType = "",
+  //   user = null
+  // ) => {
+  //   const safeContent = typeof content === "string" ? content : "";
+  //   const size = calculateFileSize(safeContent);
+
+  //   const newFile = {
+  //     id: uuidv4(),
+  //     name,
+  //     type: "file",
+  //     content: safeContent,
+  //     fileType,
+  //     parentId,
+  //     size,
+  //     createdAt: new Date().toISOString(),
+  //     owner: user?.email ?? null,
+  //   };
+
+  //   setFiles((prev) => [...prev, newFile]);
+  //   return newFile;
+  // };
+
+  //open file
+   // const openFile = (file) => {
+  //   try {
+  //     if (!file?.content) {
+  //       throw new Error("Missing file content");
+  //     }
+
+  //     const lowerName = file.name.toLowerCase();
+
+  //     // Let the modal handle all file types
+  //     setOpenedFile({
+  //       ...file,
+  //       isOpen: true,
+  //       // Ensure fileType is properly set
+  //       fileType: file.fileType || getMimeTypeFromExtension(lowerName),
+  //     });
+  //   } catch (error) {
+  //     console.error("Error opening file:", error);
+  //     alert("Could not open file. It may be corrupted or unsupported.");
+  //   }
+  // };
+
+
+  //handle import form API
+  // const handleImportFromApi = async (url) => {
+  //   const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(url)}`;
+  //   try {
+  //     // Fetch the file
+  //     const response = await fetch(proxyUrl);
+  //     const blob = await response.blob();
+
+  //     // Get filename
+  //     let fileName = url.split("/").pop();
+  //     const contentDisposition = response.headers.get("content-disposition");
+  //     if (contentDisposition?.includes("filename=")) {
+  //       fileName = contentDisposition.split("filename=")[1].replace(/"/g, "");
+  //     }
+
+  //     // Create object URL for download
+  //     const downloadUrl = URL.createObjectURL(blob);
+  //     const a = document.createElement("a");
+  //     a.href = downloadUrl;
+  //     a.download = fileName;
+  //     document.body.appendChild(a);
+  //     a.click();
+  //     document.body.removeChild(a);
+  //     URL.revokeObjectURL(downloadUrl);
+
+  //     // Prepare for saving to app
+  //     const reader = new FileReader();
+  //     reader.onload = () => {
+  //       setPickedFile({
+  //         name: fileName,
+  //         url: reader.result,
+  //         fileType: blob.type,
+  //       });
+  //       setShowApiModal(false);
+  //       setSelectFolderModal(true);
+  //     };
+  //     reader.readAsDataURL(blob);
+  //   } catch (error) {
+  //     console.error("Failed to fetch file:", error);
+  //     alert("Failed to download file. Please try another link.");
+  //   }
+  // };
